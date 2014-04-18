@@ -1,6 +1,7 @@
 <?php
 /*
 ===COMING UP===
+
 unban() -- Finish it
 2Step() -- The function that will allow for 2Step Authentication
 logout() -- Just perfect it
@@ -37,7 +38,7 @@ user
     login()
         Logs in a user, and then redirects them to the desired URL
         $user->login("Bob", "cake.com")
-    logout()
+    logout() [[NOT FINISHED]]
         ?? Should allow for redirects like login() does
         ?? Needs to allow for deletion of all sessions
         Logs a user out of their current session, or all sessions
