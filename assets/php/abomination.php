@@ -12,7 +12,7 @@ sql
         Sanitizes inputted content to make it safe for sql
         $sql->sanitize($_POST['email'])
 
-log
+log -- [[MOST LIKELY TO BE DEPRECATED]]
     logEvent()
         Logs an event, to be reviewed
         $log->logEvent($logged_in_user, $logged_in_users_ip, $user_being_acted_upon, $user_bring_acted_upons_stored_ip, $what_is_going_on, $url_of_page_this_is_beig_used_on, $some_relevant_id)
@@ -65,22 +65,49 @@ user
     nameAvailable()
         Checks if a username is available
         $user->nameAvailable("Bob")
+
 blog
     create()
         Creates a new blog
         $blog->create($creatorofblog, $titleofblog, $contentofblog, $urlsofpicturesforblog)
     edit()
         Edit a blog's content
-        blog->edit("title", $newtitle, "id", $id2)
+        $blog->edit("title", $newtitle, "id", $id)
+    delete()
+        Delete a blog
+        $blog->delete("56", $username)
+
+resources
+    create()
+        Creates a new resource pack
+        $resource->create($creatorofresourcepack, $titleofresourcepack, $contentofresourcepack, $urlsofpicturesforresourcepack, $dlurl1, $dlurl2)
+    edit()
+        Edit a resource pack's content
+        $resource->edit("title", $newtitle, "id", $id)
+    delete()
+        Delete a resource pack
+        $resource->delete("56", $username)
+
+content
+    votecheck()
+        Checks if the user has upvoted this yet or not
+        $content->votecheck("blog", "56", $username)
+    upvote()
+        Upvotes the content
+        $content->upvote("blog", "56", $username)
+    downvote()
+        Downvotes the content
+        $content->downvote("blog", "56", $username)
+    report()
+        Reports the content to the moderators
+        $content->report("blog", "56", $username, "I HATE IT! ARGGGGHH! D=")
+    reportcheck()
+        ?? Add in checking to see if the report has been cleared
+        Checks if the content has been reported, and if it has it returns how many times it has been reported
+        $content->reportcheck("blog", "56")
 
 ========================================
 */
-
-/****************************************
-
-SQL Functions
-
-****************************************/
 
 class sql {
     
@@ -96,14 +123,7 @@ class sql {
     
 }
 
-/****************************************
-
-Log Functions
-May be deprecated at release
-
-****************************************/
-
-/*class log {
+class log {
     
     #$log->logEvent($logged_in_user, $logged_in_users_ip, $user_being_acted_upon, $user_bring_acted_upons_stored_ip, $what_is_going_on, $url_of_page_this_is_beig_used_on, $some_relevant_id)
     #Would insert a log of the event
@@ -128,13 +148,7 @@ May be deprecated at release
         mysql_query("UPDATE log SET flag='".$newstatus."' WHERE id='".$logid."'");
     }
 
-}*/
-
-/****************************************
-
-User functions
-
-****************************************/
+}
 
 class user {
     
@@ -321,12 +335,6 @@ class user {
     }
 }
 
-/****************************************
-
-Blog Functions
-
-****************************************/
-
 class blog {
     
     #$blog->create($creatorofblog, $titleofblog, $contentofblog, $urlsofpicturesforblog)
@@ -351,17 +359,21 @@ class blog {
 
         mysql_query("UPDATE blogs SET ".$what."='".$to."' WHERE ".$where."='".$is."'");
     }
-        
+
+    #$blog->delete("56", $username)
+    #Would delete blog 56 by user $username
+    function delete($id, $byuser) {
+        $id      = $sql->santize($id);
+        $byuser  = $sql->sanitize($byuser);
+
+        mysql_query("DELETE FROM blogs WHERE id='".$id."' AND username='".$byuser."' LIMIT 1");
+    }        
 }
-
-/****************************************
-
-Resource Pack Functions
-
-****************************************/
 
 class resource {
     
+    #$resource->create($creatorofresourcepack, $titleofresourcepack, $contentofresourcepack, $urlsofpicturesforresourcepack, $dlurl1, $dlurl2)
+    #Would create a recource pack with pictures
     function create($byuser, $title, $content, $picurls, $dlurl1, $dlurl2) {
         $byuser  = $sql->sanitize($byuser);
         $title   = $sql->sanitize($title);
@@ -373,6 +385,8 @@ class resource {
         mysql_query("INSERT INTO resources (byuser, title, picurls, content, date, dlurl1, dlurl2) VALUES ('".$byuser."', '".$title."', '".$picurls."', '".$content."', '".$date."', '".$dlurl1."', '".$dlurl2."')");
     }
     
+    #$resource->edit("title", "boboboobob", "id", $idofresourcepack)
+    #Would edit the title of the resource pack with the id of $idofresourcepack to be "boboboobob"
     function edit($what, $to, $where, $is) {
         $what  = $sql->sanitize($what);
         $to    = $sql->sanitize($to);
@@ -381,17 +395,22 @@ class resource {
 
         mysql_query("UPDATE resources SET ".$what."='".$to."' WHERE ".$where."='".$is."'");
     }
+
+    #$resource->delete("56", $username)
+    #Would delete resource pack 56 by user $username
+    function delete($id, $byuser) {
+        $id      = $sql->santize($id);
+        $byuser  = $sql->sanitize($byuser);
+
+        mysql_query("DELETE FROM resources WHERE id='".$id."' AND username='".$byuser."' LIMIT 1");
+    }    
     
 }
 
-/****************************************
-
-General Content Functions
-
-****************************************/
-
 class content {
     
+    #$content->votecheck("blog", "56", $username)
+    #Would check if $username is inside of blog 56's vote column
     function votecheck($whatisit, $id, byuser) {
         $whatisit = $sql->sanitize($whatisit);
         $id       = $sql->sanitize($id);
@@ -409,6 +428,8 @@ class content {
 		}
     }
     
+    #$content->upvote("blog", "56", $username)
+    #Would add $username to blog 56's upvotes column 
     function upvote($whatisit, $id, $byuser) {
         $whatisit = $sql->sanitize($whatisit);
         $id       = $sql->sanitize($id);
@@ -432,6 +453,8 @@ class content {
 		}
     }
     
+    #$content->downvote("blog", "56", $username)
+    #Would add $username to blog 56's downvotes column 
     function downvote($whatisit, $id, $byuser) {
         $whatisit = $sql->sanitize($whatisit);
         $id       = $sql->sanitize($id);
@@ -455,6 +478,8 @@ class content {
 		}
     }
     
+    #$content->report("blog", "56", $username, "I HATE IT! ARGGGGHH! D=")
+    #Would report blog 56 to the moderators
     function report($whatisit, $id, $byuser, $reason) {
         $whatisit = $sql->sanitize($whatisit);
         $id       = $sql->sanitize($id);
@@ -469,6 +494,8 @@ class content {
         }
     }
     
+    #$content->reportcheck("blog", "56")
+    #Would check if blog 56 has been reported -- It returns a number if it has been, so you could not show it if it had more than 10 reports or something
     function reportcheck($whatisit, $id) {
         $id = $sql->sanitize($id);
 
