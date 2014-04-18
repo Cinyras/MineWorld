@@ -1,5 +1,11 @@
 <?php
 /*
+===COMING UP===
+unban() -- Finish it
+2Step() -- The function that will allow for 2Step Authentication
+logout() -- Just perfect it
+sendMessage() -- PMs! Yay! I hate PM systems :/
+
 ===TABLE OF CONTENTS===
 
 sql
@@ -54,9 +60,15 @@ user
         Edit a user's stuff
         $user->edit("email", $newemail, "id", $usersID);
     ban()
-        ?? Needs a matching bancheck() and unban()
+        ?? Needs a matching unban()
         Bans a user
         $user->ban("Bob", $bobs_ip, "Was harassing people", "Zbee")
+    unban() [[NOT FINISHED]]
+        Unbans every ban for a user by changing it's appeal column to '1'
+        $user->unban($username)
+    bancheck()
+        Checks if a user is banned (Checks inputted username, inputted IP or fetches the current IP, and the IP attached to the username)
+        $user->bancheck($username, $ip)
     nameAvailable()
         Checks if a username is available
         $user->nameAvailable("Bob")
@@ -209,7 +221,15 @@ class user {
         
         $query    = mysql_query("SELECT * FROM `blobs` WHERE code='$hash' AND date>'$time' AND action='session'");
         $numrows  = mysql_num_rows($query);
-        if ($numrows > 0) { return TRUE; } else { return FALSE; }
+        if ($numrows > 0) {
+            $thing = TRUE;
+            $uname = $value['user'];
+            if (bancheck($uname) === false) {
+                $thing = FALSE;
+            }
+        } else {
+            return $thing = FALSE;
+        }
     }
 
     #$user->get("email")
@@ -322,7 +342,58 @@ class user {
 
         mysql_query("INSERT INTO `banned` (username, ip, reason, issuer, date) VALUES ('$username', '$ip', '$reason', '$date')");
     }
-    
+
+    #$user->unban($username)
+    #Would unban $username
+    function unban($username) {
+        $username = $sql->sanitize($username);
+
+        #Go through, and change every ban for this username to be appealed
+    }
+
+    #$user->bancheck($username, $ip)
+    #Would checkif $username And/Or $ip was banned
+    function bancheck($username, $ip = false) {
+        $username = $sql->sanitize($username);
+
+        if ($ip === false) {
+            $ip = $_SERVER['REMOTE_ADDR'];
+        } else {
+            $ip = $sql->sanitize($ip);
+        }
+
+        $query = mysql_query("SELECT * FROM `ban` WHERE ip='$ip'");
+        while($value = mysql_fetch_array($query)) {
+            if ($value['appealed'] === "0") {
+                $thing = true;
+            } else {
+                $thing = false;
+            }
+        }
+
+        $query2 = mysql_query("SELECT * FROM `ban` WHERE username='$username'"); if (!$query2) { return "sql"; }
+        while($value = mysql_fetch_array($query2)) {
+            if ($value['appealed'] === "0") {
+                if ($thing === false) { $thing = true; } else { $thing = false; } 
+            } else {
+                $thing = false;
+            }
+        }
+
+        $query3 = mysql_query("SELECT * FROM `ban` WHERE ip='".get("ip", $username)."'"); if (!$query2) { return "sql"; }
+        while($value = mysql_fetch_array($query3)) {
+            if ($value['appealed'] === "0") {
+                if ($thing === false) { $thing = true; } else { $thing = false; } 
+            } else {
+                $thing = false;
+            }
+        }
+
+        return $thing;
+    }
+
+    }
+
     #$user->nameAvailable("Bob")
     #Would check if there's already a useranme named Bob
     function nameAvailable($username) {
