@@ -5,6 +5,7 @@ unban() -- Finish it
 2Step() -- The function that will allow for 2Step Authentication
 logout() -- Just perfect it
 sendMessage() -- PMs! Yay! I hate PM systems :/
+triggers.php accessibility -- YAY! I get to make my backend callable!! :D
 
 ===TABLE OF CONTENTS===
 
