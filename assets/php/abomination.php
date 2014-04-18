@@ -100,6 +100,11 @@ content
         ?? Add in checking to see if the report has been cleared
         Checks if the content has been reported, and if it has it returns how many times it has been reported
         $content->reportcheck("blog", "56")
+    addComment()
+        ?? Need to check to see if that's how we want comments to be replies
+        ?? Still need to figure out markdown situation
+        Adds a comment to any content, can support being replied to
+        $content->addComment("blog", "56", $username, "4", "I'm $username and I am commenting on blog 56 and replying to comment 4")
 */
 
 class sql {
@@ -499,6 +504,19 @@ class content {
         } else {
             return false;
         }
+    }
+
+    #$content->addComment("blog", "56", $username, "4", "I'm $username and I am commenting on blog 56 and replying to comment 4")
+    #Would add a comment to blog 56 by $username which is a reply to comment number 4
+    function addComment($whatisit, $id, $byuser, $replyto, $content) {
+        $whatisit  = $sql->sanitize($whatisit);
+        $id        = $sql->sanitize($id);
+        $byuser    = $sql->sanitize($byuser);
+        $replyto   = $sql->sanitize($replyto);
+        $content   = $sql->sanitize($conrent); #This will need to have markdown[basic] enabled (italics, bold, links)
+        $time      = time();
+
+        mysql_query("INSERT INTO `comments` (type, cid, by, date, replyto, content) VALUES ('".$whatisit."', '".$id."', '".$byuser."', '".$time."', '".$replyto."', '".$content."')");
     }
     
 }
