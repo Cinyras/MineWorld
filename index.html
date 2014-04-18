@@ -1,0 +1,256 @@
+<!--
+  NOTES TO MYSELF:
+    1. see how brick looks as background for statistics
+-->
+
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Mine World - The Innovative Content Site for all of Your Mincraft Needs : Home</title>
+
+    <!-- Bootstrap Stylesheet ~Matthew -->
+    <link type="text/css" rel="stylesheet" href="assets/css/bootstrap.min.css" />
+    <!-- Main Stylesheet ~Matthew -->
+    <link type="text/css" rel="stylesheet" href="assets/css/main.css" />
+  </head>
+  <body>
+    <!-- JQuery Link ~Matthew -->
+    <script src="assets/js/jquery-1.11.0.min.js"></script>
+    <!-- Bootstrap js plugins ~Matthew -->
+    <script src="assets/js/bootstrap.min.js"></script>
+    <!-- My Inline Data Validation ~Matthew -->
+    <script src="assets/js/inline-validation.js"></script>
+    <!-- My Slider Caption JavaScript -->
+    <script src="assets/js/slider-captions.js"></script>
+
+    <!-- Login Modal ~Matthew -->
+    <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <center>
+              <img src="assets/img/thumbnails/default_profile.png" alt="" class="img-rounded" />
+              <h4 class="modal-title">Login Here</h4>
+            </center>
+          </div>
+          <div class="modal-body">
+            <form class="form">
+              <div class="form-group">
+                <label class="sr-only" for="username">Username</label>
+                <input type="text" class="form-control input-lg" id="username" name="username" placeholder="Username">
+              </div>
+              <div class="form-group">
+                <label class="sr-only" for="password">Password</label>
+                <input type="password" class="form-control input-lg" id="password" name="password" placeholder="Password">
+              </div>
+              <button type="button" class="btn btn-primary btn-block">Login</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Create Account Modal ~Matthew -->
+    <div class="modal fade" id="createAccountModal" tabindex="-1" role="dialog" aria-labelledby="createAccountModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <center>
+              <img src="assets/img/thumbnails/account_creation.png" alt="" class="img-rounded" />
+              <h4 class="modal-title">Create Account</h4>
+            </center>
+          </div>
+          <div class="modal-body">
+            <form class="form" id="createAccountForm">
+              <div class="form-group well">
+                <div class="form-group has-feedback" id="usernameGroup">
+                  <label class="control-label" for="createUsername">Username:</label>
+                  <input type="text" id="createUsername" class="form-control input-lg" name="new-username" placeholder="Username">
+                  <span class="form-control-feedback glyphicon hasPop" rel="popover" data-container=".modal"></span>
+                </div>
+              </div>
+              <div class="form-group well">
+                <div class="form-group has-feedback" id="emailGroup">
+                  <label class="control-label" for="createEmail">Email:</label>
+                  <input type="email" id="createEmail" class="form-control input-lg" name="new-email" placeholder="Email">
+                  <span class="form-control-feedback glyphicon hasPop" rel="popover" data-container=".modal"></span>
+                </div>
+                <div class="form-group has-feedback" id="emailGroupC">
+                  <label class="control-label" for="createEmailConfirm">Confirm Email:</label>
+                  <input type="email" id="createEmailConfirm" class="form-control input-lg" name="new-email-confirm" placeholder="Email">
+                  <span class="form-control-feedback glyphicon hasPop" rel="popover" data-container=".modal"></span>
+                </div>
+              </div>
+              <div class="form-group well">
+                <div class="form-group has-feedback" id="passwordGroup">
+                  <label class="control-label" for="createPassword">Password:</label>
+                  <input type="password" id="createPassword" class="form-control input-lg" name="new-password" placeholder="Password">
+                  <span class="form-control-feedback glyphicon hasPop" rel="popover" data-container=".modal"></span>
+                </div>
+                <div class="form-group has-feedback" id="passwordGroupC">
+                  <label class="control-label" for="createPasswordConfirm">Confirm Password:</label>
+                  <input type="password" id="createPasswordConfirm" class="form-control input-lg" name="new-password-confirm" placeholder="Password">
+                  <span class="form-control-feedback glyphicon hasPop" rel="popover" data-container=".modal"></span>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary">Submit</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- non-fluid container ~Matthew -->
+    <div class="container">
+      <div class="row siteHeader">
+        <div class="col-md-12">
+          <div class="col-md-3 siteTitle">Mine World</div>
+            <div class="col-md-3 col-md-offset-6 searchLoginContainer">
+              <div class="loginBox"><a role="button" data-toggle="modal" data-target="#loginModal">Login</a> / <a role="button" data-toggle="modal" data-target="#createAccountModal">Create Account</a></div>
+                <div class="input-group searchBar">
+                  <input type="text" class="form-control" placeholder="Search Here">
+                  <span class="input-group-btn">
+                    <button class="btn btn-default" type="button">Search</button>
+                  </span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <!-- Navbar ~Matthew -->
+          <div class="col-md-2 navBar">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#siteNav" id="nav-toggle-button">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="glyphicon glyphicon-th-list"></span>
+            </button>
+            <div class="collapse navbar-collapse" role="navigation" id="siteNav">
+              <ul class="nav-stacked navList">
+                <a href="#"><li class="navButton">Home</li></a>
+                <a href="pages/projects.html"><li class="navButton">Projects</li></a>
+                <a href="pages/skins.html"><li class="navButton">Skins</li></a>
+                <a href="#"><li class="navButton">Resource Packs</li></a>
+                <a href="#"><li class="navButton">Servers</li></a>
+                <a href="#"><li class="navButton">Mods</li></a>
+                <a href="#"><li class="navButton">Blogs</li></a>
+                <a href="#"><li class="navButton">Contests</li></a>
+                <a href="#"><li class="navButton">Members</li></a>
+                <a href="#"><li class="navButton">Forum</li></a>
+                <a href="#"><li class="navButton">Livestreams</li></a>
+                <a href="#"><li class="navButton">Chat</li></a>
+                <a href="#"><li class="navButton">Store</li></a>
+              </ul>
+            </div>
+          </div>
+          <div class="col-md-6 slider-newsContainer">
+            <div class="imageViewerOut">
+              <div class="imageViewer">
+                <div id="main-image-slider" class="carousel slide" data-ride="carousel">
+                  <!-- Slides Wrapper ~Matthew -->
+                  <div class="carousel-inner">
+                    <!-- Slides Go Here -->
+                    <div class="item active" data-content="An Accidental Screenshot by Matt">
+                      <a href="#"><img src="assets/img/slides/Slide1.png" alt="" /></a>
+                    </div>
+                    <div class="item" data-content="Another Accidental Screenshot by Matt">
+                      <a href="#"><img src="assets/img/slides/Slide2.png" alt="" /></a>
+                    </div>
+                    <div class="item" data-content="Yet Another Accidental Screenshot by Matt">
+                      <a href="#"><img src="assets/img/slides/Slide3.png" alt="" /></a>
+                    </div>
+                    <div class="item" data-content="Is This One Intentional? Nobody Knows ...">
+                      <a href="#"><img src="assets/img/slides/Slide4.png" alt="" /></a>
+                    </div>
+                  </div>
+                  <div class="imageCaption">
+                    No Captions
+                  </div>
+                  <!-- slider controls ~Matthew -->
+                  <a class="left carousel-control" href="#main-image-slider" data-slide="prev">
+                    <span class="glyphicon glyphicon-chevron-left"></span>
+                  </a>
+                  <a class="right carousel-control" href="#main-image-slider" data-slide="next">
+                    <span class="glyphicon glyphicon-chevron-right"></span>
+                  </a>
+                </div>
+              </div>
+            </div>
+            <!-- News Box -->
+            <div class="newsContainer">
+              <header>News</header>
+              <hr>
+              <p>&emsp;Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris laoreet facilisis neque rutrum dignissim. Maecenas quis tincidunt mauris. Nullam est enim, tristique ac ligula at, pretium imperdiet mauris. Nam dictum convallis turpis, ut iaculis tortor elementum id. Cras imperdiet mauris metus, id tempor eros faucibus in. Maecenas arcu purus, elementum eget elementum at, pretium nec lorem. Sed ac lectus purus. Etiam venenatis aliquam elit ac elementum. Pellentesque elementum eleifend dui et aliquam. Praesent in enim pretium, ornare ante non, lobortis augue. Etiam eros justo, faucibus vitae arcu ut, tincidunt egestas sem. Mauris ac elit ut nibh mattis aliquam sagittis ac turpis.</p>
+              <p>&emsp;Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Praesent iaculis pulvinar aliquet. Morbi sed dapibus metus, quis aliquam magna. Nullam vehicula ipsum id justo fermentum, et posuere dui aliquet. In scelerisque sapien nec quam ultricies adipiscing. Nulla non sapien metus. Sed feugiat turpis adipiscing arcu venenatis, ac feugiat nunc dictum. Nulla ut varius lacus. Sed quis convallis augue. Morbi eget adipiscing velit, in ultricies quam. Nulla vestibulum urna ac varius porttitor. Suspendisse eget nibh aliquet, rhoncus dolor eu, luctus enim. Donec eu eros non dui tristique ultrices id a nibh. Quisque et quam quam.</p>
+              <p>&emsp;Phasellus pretium quam ac neque mollis, et vulputate lectus aliquam. Nullam sit amet erat felis. Duis pulvinar lorem orci, at rhoncus nulla pellentesque volutpat. Aliquam aliquet porttitor nisi quis egestas. Cras cursus nisl at porta adipiscing. Aliquam viverra risus fermentum eros tincidunt, sit amet tincidunt quam elementum. Duis faucibus mauris sit amet leo porttitor dictum. Ut lobortis lectus ut dolor consequat, non rutrum ante dictum. Maecenas mollis congue mi, in pulvinar velit malesuada nec. Aenean nunc leo, rhoncus id euismod et, ultricies sed tortor. Cras aliquet quam et iaculis malesuada. Nullam lectus ligula, bibendum vel justo luctus, hendrerit vestibulum est. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Fusce vulputate ipsum ac consectetur malesuada.</p>
+            </div>
+          </div>
+          <div class="col-md-4 featured-stats-wrapper">
+          <!-- featured items -->
+          <div class="featuredContentContainer">
+            <!-- Top 3 Resource Packs -->
+            <div class="featuredContentGroupContainer">
+              <div class="featuredContentGroupHeader">
+                Top 3 Resource Packs of the Week
+              </div>
+              <div class="featuredContentGroup">
+                <div class="featuredContentImgContainer">
+                  <img class="img-thumbnail" src="assets/img/thumbnails/placeholder_thumb.png" alt="" />
+                  <img class="img-thumbnail" src="assets/img/thumbnails/placeholder_thumb.png" alt="" />
+                  <img class="img-thumbnail" src="assets/img/thumbnails/placeholder_thumb.png" alt="" />
+                </div>
+              </div>
+            </div>
+            <!-- Top 3 Projects -->
+            <div class="featuredContentGroupContainer">
+              <div class="featuredContentGroupHeader">
+                Top 3 Projects of the Week
+              </div>
+              <div class="featuredContentGroup">
+                <div class="featuredContentImgContainer">
+                  <img class="img-thumbnail" src="assets/img/thumbnails/placeholder_thumb.png" alt="" />
+                  <img class="img-thumbnail" src="assets/img/thumbnails/placeholder_thumb.png" alt="" />
+                  <img class="img-thumbnail" src="assets/img/thumbnails/placeholder_thumb.png" alt="" />
+                </div>
+              </div>
+            </div>
+            <!-- Top 3 Skins -->
+            <div class="featuredContentGroupContainer">
+              <div class="featuredContentGroupHeader">
+                Top 3 Skins of the Week
+              </div>
+              <div class="featuredContentGroup">
+                <div class="featuredContentImgContainer">
+                  <img class="img-thumbnail" src="assets/img/thumbnails/placeholder_thumb.png" alt="" />
+                  <img class="img-thumbnail" src="assets/img/thumbnails/placeholder_thumb.png" alt="" />
+                  <img class="img-thumbnail" src="assets/img/thumbnails/placeholder_thumb.png" alt="" />
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Statistics -->
+          <div class="statisticsContainer">
+            <h4>Statistics</h4>
+            <hr>
+            <div class="statisticsContent">
+              <table>
+                <tr><td>9,999,999</td><td class="statNum">Crafters Online</td></tr>
+                <tr><td>999,999,999</td><td class="statNum">Members</td></tr>
+                <tr><td>9,999,999,999</td><td class="statNum">Downloads</td></tr>
+              </table>
+            </div>
+          </div>
+          </div>
+        </div>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="col-md-12 siteFooter"><span class="glyphicon glyphicon-copyright-mark"></span> 2014 Fractal Noise Design Studios</div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

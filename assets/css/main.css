@@ -1,0 +1,398 @@
+@font-face {
+  font-family: Minecraftia;
+  src: url(../fonts/minecraftia/minecraftia-webfont.woff),
+    url(../fonts/minecraftia/minecraftia-webfont.ttf),
+    url(../fonts/minecraftia/minecraftia-webfont.eot),
+    url(../fonts/minecraftia/minecraftia-webfont.svg);
+}
+
+* {
+  font-family: Minecraftia;
+  color:white;
+  text-shadow:2px 2px rgba(0,0,0,255);
+}
+
+body {
+  background-image:url("../img/farmland_wet_background.png");
+  background-attachment: fixed;
+}
+a {
+  text-decoration:none;
+  color:blue;
+  text-shadow:none;
+  cursor:pointer;
+}
+a:hover {
+  text-decoration:none;
+  color:green;
+}
+a:active {
+  color:darkgreen;
+}
+hr {
+  margin-top:3px;
+  margin-bottom:2px;
+}
+#siteNav {
+  padding:0;
+}
+.btn-primary {
+  background-image:url("../img/lapis_block_overlay.png");
+  background-size:100%;
+}
+.carousel-inner {
+  max-height:290px;
+}
+.nav-tabs li.active {
+  color:black;
+}
+.nav-tabs a {
+  background-image:url("../img/stone_overlay.png");
+  color:black;
+}
+.siteHeader {
+  margin-top:15px;
+  margin-bottom:50px;
+}
+.siteTitle {
+  text-align:center;
+  font-size:24pt;
+  background-image:url("../img/wool_background.png");
+  text-shadow:none;
+  color: black;
+  padding-top:7px;
+  padding-bottom:12px;
+}
+.searchLoginContainer {
+  background-image:url("../img/wool_background.png");
+  padding-top:5px;
+  padding-bottom:5px;
+}
+.searchLoginContainer a {
+  color: black;
+  cursor: pointer;
+}
+.loginBox {
+  text-align:center;
+  text-shadow:none;
+  color: black;
+  font-size:12pt;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+.searchBar {
+  text-shadow: none;
+  margin-top:2px;
+}
+.searchBar button {
+  text-shadow: none;
+  background-image: url("../img/button_unpressed.png");
+  background-size:100% 100%;
+  border:none;
+  color: #FFFFFF;
+  -webkit-box-shadow:none;
+  box-shadow:none;
+  outline:0;
+  outline-style:none;
+  outline-width:0;
+  border-radius:0;
+}
+.searchBar button:hover {
+  border:none;
+  background-image: url("../img/button_blue.png");
+  color: #FAFF4B;
+  -webkit-box-shadow:none;
+  box-shadow:none;
+  outline:0;
+  outline-style:none;
+  outline-width:0;
+}
+.searchBar button:active {
+  border:none;
+  background-image: url("../img/button_pressed.png");
+  color: #D7DB43;
+  -webkit-box-shadow:none;
+  box-shadow:none;
+  outline:0;
+  outline-style:none;
+  outline-width:0;
+}
+.searchBar button:focus {
+  border:none;
+  color: #FFFFFF;
+  -webkit-box-shadow:none;
+  box-shadow:none;
+  outline:0;
+  outline-style:none;
+  outline-width:0;
+}
+.searchBar input {
+  text-shadow: none;
+  border: none;
+  -webkit-box-shadow:none;
+  box-shadow:none;
+  -webkit-box-shadow:none;
+  box-shadow:none;
+  outline:0;
+  border-radius:0;
+  background-image:url("../img/quartz_block_overlay.png");
+}
+.searchBar input:focus {
+  outline:0;
+}
+.navbar-collapse {
+  max-height:none;
+}
+.navbar-toggle {
+  background-image:url("../img/button_unpressed.png");
+  background-size:100% 100%;
+  font-size:16pt;
+  float:none;
+  margin-bottom:5px;
+  padding-bottom:5px;
+  padding-top:5px;
+  padding-left:2px;
+  padding-right:2px;
+  margin-left:0;
+  background-color:gray;
+  width:100%;
+  border-radius:0;
+  border-width:1px;
+  border-bottom-width:2px;
+  border-bottom-color:rgba(84,84,84,1);
+  border-right-color:rgba(84,84,84,1);
+  border-left-color:rgba(170,170,170,1);
+  border-top-color:rgba(170,170,170,1);
+}
+.navbar-toggle:hover {
+  background-image:url("../img/button_blue.png");
+  color: #FAFF4B;
+  border-bottom-color:rgba(92,102,157,1);
+  border-right-color:rgba(92,102,157,1);
+  border-left-color:rgba(191,200,255,1);
+  border-top-color:rgba(191,200,255,1);
+}
+.navbar-toggle:active {
+  background-image:url("../img/button_pressed.png");
+  color: #D7DB43;
+  border-color:transparent;
+}
+.navList {
+  list-style:none;
+  color:rgba(0,0,0,255);
+  margin-left:0;
+  padding-left:0;
+}
+.navButton {
+  background-image:url("../img/button_unpressed.png");
+  background-size: 100% 100%;
+  width:100%;
+  border-style:solid;
+  border-width:1px;
+  border-bottom-width:2px;
+  border-bottom-color:rgba(84,84,84,1);
+  border-right-color:rgba(84,84,84,1);
+  border-left-color:rgba(170,170,170,1);
+  border-top-color:rgba(170,170,170,1);
+  text-align: center;
+  text-decoration: none;
+  margin-bottom:5px;
+  padding-bottom:5px;
+  padding-top:5px;
+  padding-left:2px;
+  padding-right:2px;
+  margin-left:0;
+  cursor:pointer;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+.navButton:hover {
+  background-image:url("../img/button_blue.png");
+  color: #FAFF4B;
+  border-bottom-color:rgba(92,102,157,1);
+  border-right-color:rgba(92,102,157,1);
+  border-left-color:rgba(191,200,255,1);
+  border-top-color:rgba(191,200,255,1);
+}
+.navButton:active {
+  background-image:url("../img/button_pressed.png");
+  color: #D7DB43;
+  border-color:transparent;
+}
+.imageViewer {
+  background-image:url("../img/redstone_block_background.png");
+  padding:7px;
+  border-width:20px;
+}
+.imageViewerOut {
+  background-image:url("../img/stone_block_background.png");
+  padding:7px;
+}
+.imageCaption {
+  position:absolute;
+  z-index:10;
+  width:100%;
+  bottom:0px;
+  padding:5px;
+  /*background-color:rgba(0,0,0,0.5);*/
+  background-image: -webkit-linear-gradient(bottom, color-stop(rgba(0, 0, 0, .5) 0%), color-stop(rgba(0, 0, 0, .0001) 100%));
+  background-image:         linear-gradient(to top, rgba(0, 0, 0, .7) 0%, rgba(0, 0, 0, .1) 100%);
+}
+.featuredContentContainer {
+  background-image:url("../img/wool_background.png");
+  font-size:12pt;
+  padding-top:20px;
+  padding-bottom:5px;
+  padding-left:20px;
+  padding-right:20px;
+}
+.featuredContentGroupContainer {
+  margin-bottom:15px;
+}
+.featuredContentGroupHeader {
+  background-image:url("../img/cyan_stained_clay_block_background.png");
+  padding:5px;
+}
+.featuredContentGroup {
+  background-image:url("../img/stone_block_background.png");
+  padding-left:2px;
+}
+.featuredContentImgContainer {
+  text-align:center;
+}
+.featuredContentImgContainer img {
+  width:90px;
+  height:90px;
+  margin:0 auto;
+  margin-top:5px;
+  margin-bottom:5px;
+}
+.newsContainer {
+  background-color:rgba(200,200,200,255);
+  background-image:url("../img/stone_overlay.png");
+  margin-top:10px;
+  margin-bottom:10px;
+  padding: 10px;
+}
+.newsContainer hr {
+  color:black;
+  background-color:black;
+  border-color:black;
+}
+.newsContainer p {
+  text-shadow:none;
+  color:black;
+}
+.newsContainer header {
+  text-shadow:none;
+  color:black;
+  font-size:14pt;
+}
+.loginButtons {
+  text-shadow:none;
+}
+.siteFooter {
+  text-shadow:none;
+  color:black;
+  background-image:url("../img/wool_background.png");
+  min-height: 20px;
+  padding: 19px;
+  margin-bottom: 20px;
+}
+.siteFooter *{
+  text-shadow:none;
+  color:black;
+}
+.statisticsContainer {
+  background-image:url("../img/stonebrick_background.png");
+  min-height:100px;
+  margin-top:10px;
+  margin-bottom:10px;
+  padding:10px;
+}
+.statisticsContainer hr {
+  border-width:2px;
+}
+.statisticsContainer td {
+  padding:5px;
+  padding-right:25px;
+}
+.statNum {
+  margin-left:5px;
+  text-shadow:none;
+  color:black;
+  font-weight:bold;
+}
+.alignRow {
+  margin-left:-22px;
+}
+.modal * {
+  text-shadow:none;
+  color:black;
+}
+.modal input {
+  background-image:url("../img/quartz_block_overlay.png");
+}
+.modal a {
+  color:blue;
+}
+.modal a:hover {
+  color:green;
+}
+.modal a:active {
+  color:darkgreen;
+}
+.modal .btn-primary {
+  color:white;
+}
+.modal .well {
+  background-image:url("../img/wool_background.png");
+}
+.modal-header, .modal-body, .modal-footer {
+  background-image:url("../img/stone_overlay.png");
+  margin:0;
+  border:none;
+}
+.tab-pane {
+  background-color:rgba(200,200,200,255);
+  background-image:url("../img/stone_overlay.png");
+  padding:10px;
+  min-height:200px;
+  margin-bottom:50px;
+}
+.tab-pane *{
+  text-shadow:none;
+  color:black;
+}
+.tab-pane hr {
+  border-color:black;
+}
+.resource {
+  width:100%;
+  background-image:url("../img/stone_block_background.png");
+  display:inline-block;
+  margin-top:5px;
+  margin-bottom:5px;
+  padding:10px;
+}
+.resourceDescription {
+  height:120px;
+  overflow:auto;
+}
+.resourceContainer .preview {
+  width:200px;
+  height:200px;
+  margin-right:10px;
+  margin-bottom:0;
+  float:left;
+}
+.preview img {
+  width:100%;
+  height:auto;
+}

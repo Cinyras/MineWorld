@@ -1,0 +1,8 @@
+@font-face {
+	font-family: 'minecraftia';
+	src: url('minecraftia-webfont.eot');
+	src: url('minecraftia-webfont.eot?#iefix') format('embedded-opentype'),
+		url('minecraftia-webfont.woff') format('woff'),
+		url('minecraftia-webfont.ttf') format('truetype'),
+		url('minecraftia-webfont.svg') format('svg');
+}
