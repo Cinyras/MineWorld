@@ -105,6 +105,11 @@ content
         ?? Still need to figure out markdown situation
         Adds a comment to any content, can support being replied to
         $content->addComment("blog", "56", $username, "4", "I'm $username and I am commenting on blog 56 and replying to comment 4")
+    deleteComment()
+        ?? Should it really replace it with "[deleted]" so that it doesn't ruin replies to it?
+        ?? Should it delete all replies to it?
+        Deletes a comment from any content
+        $content->deleteComment("blog", "56", "7", $username)
 */
 
 class sql {
@@ -121,7 +126,7 @@ class sql {
     
 }
 
-class log {
+class log { #[[MOST LIKELY TO BE DEPRECATED]]
     
     #$log->logEvent($logged_in_user, $logged_in_users_ip, $user_being_acted_upon, $user_bring_acted_upons_stored_ip, $what_is_going_on, $url_of_page_this_is_beig_used_on, $some_relevant_id)
     #Would insert a log of the event
@@ -134,7 +139,7 @@ class log {
         $sourceurl      = $sql->sanitize($sourceurl);
         $relevantid     = $sql->sanitize($relevantid);
         $date           = time();
-        mysql_query("INSERT INTO log (actinguser, actinguserip, affecteduser, affecteduserip, event, sourceurl, date) VALUES (
+        mysql_query("INSERT INTO `log` (actinguser, actinguserip, affecteduser, affecteduserip, event, sourceurl, date) VALUES (
         '".$actinguser."', '".$actinguserip."', '".$affecteduser."', '".$affecteduserip."', '".$event."', '".$sourceurl."', '".$date."')");
     }
     
@@ -143,7 +148,7 @@ class log {
     function changeFlag($logid, $newstatus) {
         $logid        = $sql->sanitize($logid);
         $newstatus    = $sql->sanitize($newstatus);
-        mysql_query("UPDATE log SET flag='".$newstatus."' WHERE id='".$logid."'");
+        mysql_query("UPDATE `log` SET flag='".$newstatus."' WHERE id='".$logid."'");
     }
 
 }
@@ -170,7 +175,7 @@ class user {
         $ip       = $_SERVER['REMOTE_ADDR'];
 		$time     = time();
 
-		$query    = mysql_query("INSERT INTO userblobs (user, code, action, ip, date) VALUES ('$username', '$hash', '$action', '$ip', '$time')");   
+		$query    = mysql_query("INSERT INTO `userblobs` (user, code, action, ip, date) VALUES ('$username', '$hash', '$action', '$ip', '$time')");   
     }
 
     #$user->login("Bob", "cake.com")
@@ -202,7 +207,7 @@ class user {
         $hash     = $sql->sanitize($hash);
         $time     = time();
         
-        $query    = mysql_query("SELECT * FROM blobs WHERE code='$hash' AND date>'$time' AND action='session'");
+        $query    = mysql_query("SELECT * FROM `blobs` WHERE code='$hash' AND date>'$time' AND action='session'");
         $numrows  = mysql_num_rows($query);
         if ($numrows > 0) { return TRUE; } else { return FALSE; }
     }
@@ -226,13 +231,13 @@ class user {
             $session = $_COOKIE[**DOMAIN**];
             $time    = time();
             
-            $query = mysql_query("SELECT * FROM blobs WHERE code='$session' AND date>'$time' AND action='session'");
+            $query = mysql_query("SELECT * FROM `blobs` WHERE code='$session' AND date>'$time' AND action='session'");
             $numrows = mysql_num_rows($query);
             while($value = mysql_fetch_array($query)) { $username = $value['user']; }
 
             if ($numrows > 0)
             {
-                $query = mysql_query("SELECT * FROM users WHERE username='$username'");
+                $query = mysql_query("SELECT * FROM `users` WHERE username='$username'");
                 while($value = mysql_fetch_array($query))
                 {
                     return $value[$what];
@@ -240,7 +245,7 @@ class user {
             }
         }
         else {
-            $query = mysql_query("SELECT * FROM users WHERE username='$session'");
+            $query = mysql_query("SELECT * FROM `users` WHERE username='$session'");
             $numrows = mysql_num_rows($query);
             if ($numrows === 1)
             {
@@ -286,7 +291,7 @@ class user {
         $date     = time();
         $lli      = "0000000000";
 
-        mysql_query("INSERT INTO users (username, permusername, email, permemail, password, salt, date_r, date_l, date_lo) VALUES ('$username', '$username', '$email', '$email', '$password', '$salt', '$date', '$date', '$date')");
+        mysql_query("INSERT INTO `users` (username, permusername, email, permemail, password, salt, date_r, date_l, date_lo) VALUES ('$username', '$username', '$email', '$email', '$password', '$salt', '$date', '$date', '$date')");
     }
     
     #$user->edit("email", $newemail, "id", $id);
@@ -303,7 +308,7 @@ class user {
             $extra = ", salt='".createsalt(get("username"))."'";
         }
         
-        mysql_query("UPDATE users SET ".$what."='".$to."'".$extra." WHERE ".$where."='".$is."'");
+        mysql_query("UPDATE `users` SET ".$what."='".$to."'".$extra." WHERE ".$where."='".$is."'");
     }
     
     #$user->ban("Bob", $bobs_ip, "Was harassing people", "Zbee")
@@ -315,7 +320,7 @@ class user {
         $issuer   = $sql->sanitize($issuer);
         $date     = time();
 
-        mysql_query("INSERT INTO banned (username, ip, reason, issuer, date) VALUES ('$username', '$ip', '$reason', '$date')");
+        mysql_query("INSERT INTO `banned` (username, ip, reason, issuer, date) VALUES ('$username', '$ip', '$reason', '$date')");
     }
     
     #$user->nameAvailable("Bob")
@@ -344,7 +349,7 @@ class blog {
         $picurls = $sql->sanitize($picurls);
         $date    = time();
 
-        mysql_query("INSERT INTO blogs (byuser, title, picurls, content, date) VALUES ('".$byuser."', '".$title."', '".$picurls."', '".$content."', '".$date."')");
+        mysql_query("INSERT INTO `blogs` (byuser, title, picurls, content, date) VALUES ('".$byuser."', '".$title."', '".$picurls."', '".$content."', '".$date."')");
     }
     
     #blog->edit($whatisbeingchanged, $whatitisbeingchangedto, $wheremodifier, $modifierofwhere)
@@ -355,7 +360,7 @@ class blog {
         $where = $sql->sanitize($where);
         $is    = $sql->sanitize($is);
 
-        mysql_query("UPDATE blogs SET ".$what."='".$to."' WHERE ".$where."='".$is."'");
+        mysql_query("UPDATE `blogs` SET ".$what."='".$to."' WHERE ".$where."='".$is."'");
     }
 
     #$blog->delete("56", $username)
@@ -364,7 +369,7 @@ class blog {
         $id      = $sql->santize($id);
         $byuser  = $sql->sanitize($byuser);
 
-        mysql_query("DELETE FROM blogs WHERE id='".$id."' AND username='".$byuser."' LIMIT 1");
+        mysql_query("DELETE FROM `blogs` WHERE id='".$id."' AND username='".$byuser."' LIMIT 1");
     }        
 }
 
@@ -380,7 +385,7 @@ class resource {
         $dlurl1  = $sql->sanitize($dlurl1);
         $dlurl2  = $sql->sanitize($dlurl2);
 
-        mysql_query("INSERT INTO resources (byuser, title, picurls, content, date, dlurl1, dlurl2) VALUES ('".$byuser."', '".$title."', '".$picurls."', '".$content."', '".$date."', '".$dlurl1."', '".$dlurl2."')");
+        mysql_query("INSERT INTO `resources` (byuser, title, picurls, content, date, dlurl1, dlurl2) VALUES ('".$byuser."', '".$title."', '".$picurls."', '".$content."', '".$date."', '".$dlurl1."', '".$dlurl2."')");
     }
     
     #$resource->edit("title", "boboboobob", "id", $idofresourcepack)
@@ -391,7 +396,7 @@ class resource {
         $where = $sql->sanitize($where);
         $is    = $sql->sanitize($is);
 
-        mysql_query("UPDATE resources SET ".$what."='".$to."' WHERE ".$where."='".$is."'");
+        mysql_query("UPDATE `resources` SET ".$what."='".$to."' WHERE ".$where."='".$is."'");
     }
 
     #$resource->delete("56", $username)
@@ -400,7 +405,7 @@ class resource {
         $id      = $sql->santize($id);
         $byuser  = $sql->sanitize($byuser);
 
-        mysql_query("DELETE FROM resources WHERE id='".$id."' AND username='".$byuser."' LIMIT 1");
+        mysql_query("DELETE FROM `resources` WHERE id='".$id."' AND username='".$byuser."' LIMIT 1");
     }    
     
 }
@@ -517,6 +522,17 @@ class content {
         $time      = time();
 
         mysql_query("INSERT INTO `comments` (type, cid, by, date, replyto, content) VALUES ('".$whatisit."', '".$id."', '".$byuser."', '".$time."', '".$replyto."', '".$content."')");
+    }
+
+    #$content->deleteComment("blog", "56", "7", $username)
+    #Would delete comment 7 by $username from blog 56
+    function deleteComment($whatisit, $cid, $id, $byuser) {
+        $whatisit = $sql->sanitize($whatisit);
+        $cid      = $sql->santize($cid);
+        $id       = $sql->santize($id);
+        $byuser   = $sql->sanitize($byuser);
+
+        mysql_query("DELETE FROM `comments` WHERE type='".$whatisit."' AND id='".$id."' AND cid='".$cid."' AND by='".$byuser."' LIMIT 1");
     }
     
 }
