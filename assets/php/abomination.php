@@ -1,11 +1,6 @@
 <?php
-/* Backend created by Ethan Henderson (Zbee) www.zbee.me */
-
-
 /*
-========================================
-
-TABLE OF CONTENTS
+===TABLE OF CONTENTS===
 
 sql
     sanitize()
@@ -105,8 +100,6 @@ content
         ?? Add in checking to see if the report has been cleared
         Checks if the content has been reported, and if it has it returns how many times it has been reported
         $content->reportcheck("blog", "56")
-
-========================================
 */
 
 class sql {
