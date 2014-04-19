@@ -22,19 +22,19 @@ login
 require "master.php";
 
 #/triggers.php?nameAvailable&username=Bob
-if (isset($_GET['nameAvailable'])) {
-	echo $user->nameAvailable($_GET['username']);
+if (isset($_POST['nameAvailable'])) {
+	echo $user->nameAvailable($_POST['username']);
 }
 
 #/triggers.php?login&username=Bob
-if (isset($_GET['login'])) {
-	echo $user->login($_GET['username']);
+if (isset($_POST['login'])) {
+	echo $user->login($_POST['username']);
 }
 
 #/triggers.php?logout&username=Bob&code=gfhetvyurtghysftyi&all=false
-if (isset($_GET['logout'])) {
-	if ($_GET['all'] === 'true') { $all = true } else { $all = false; }
-	echo $user->logout($_GET['username'], $_GET['code'], $all);
+if (isset($_POST['logout'])) {
+	if ($_POST['all'] === 'true') { $all = true } else { $all = false; }
+	echo $user->logout($_POST['username'], $_POST['code'], $all);
 }
 
 ?>
