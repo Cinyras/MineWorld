@@ -1,3 +1,27 @@
+/*
+  --__--__NOTES__--__--
+    1. all variable names with '$' at the beginning contain a jQuery object
+    2. any parameter that takes a jQuery object can also take a css selector as a string
+    3. all parameters that are booleans will default to false if unspecified
+    4. all <span>s directly under an input will be assumed to be a validity glyphicon by any function that changes validity status
+
+  --__--__TABLE OF CONTENTS__--__--
+    1. isEmailValid(String[address]); Description:"Checks if email is in a valid format, returns a boolean" Line:
+    2. isUserValid(String[username]); Description:"Checks if username is in a valid format, returns a boolean" Line:
+    3. isPassValid(String[password]); Description:"Checks if password is in a valid format, returns a boolean" Line:
+    4. doMatch($input1, $input2, clean); Description:"Tests if to form fields have equal content, there is an optional 'clean' parameter that will trim content and make it lowercase, returns a boolean" Line:
+    5. enableButton(Object[$button]); Description:"" Line:
+    6. disableButton(Object[$button]); Description:"" Line:
+    7. clearForm(Object[$form]); Description:"" Line:
+    8. clearValidity(Object[object]); Description:"" Line:
+    9. makeValid(Object[object], String[message], Boolean[hasSymbol]); Description:"" Line:
+    10. makeWarning(Object[object], String[message], Boolean[hasSymbol]); Description:"" Line:
+    11. makeInvalid(Object[object], String[message], Boolean[hasSymbol]); Description:"" Line:
+    12. validateUsername(Object[$field], Object[$group]); Description:"" Line:
+    13. validateEmail(Object[$field1], Object[$field2], Object[$group1], Object[$group2]); Description:"" Line:
+    14. validatePassword(Object[$field1], Object[$field2], Object[$group1], Object[$group2]); Description:"" Line:
+    15. userAvailable(); Description:"" Line:
+*/
 var isEmailValid = function (address) { //Check String Against Valid Email Regular Expression
   var pattern = new RegExp(/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,15}$/i);
   return pattern.test(address);
@@ -279,7 +303,7 @@ var validateEmail = function ($field1, $field2, $group1, $group2)
       }
       else
       {
-        makeInvalid($group1, "Invalid Email<br><br>All Emails Must:<br>&emsp;-Be Correctly Formatted", true);
+        makeInvalid($group1, "Invalid Email<br><br>All Emails Must:<br>&emsp;-Be Valid", true);
         makeInvalid($group2, null, true);
       }
     }
@@ -387,14 +411,6 @@ var createAccountReady = function ($user, userAvailable, $email, $emailC, $pass,
 };
 
 $(document).ready(function () {
-  /*
-    NOTES:
-      -All functions that take elements can take strings or jquery objects, if it is a string use it as a selector eg. doMatch("#ID1","#ID2"); or doMatch($a,$b); or doMatch("#ID1",$a);
-      -If a function takes a boolean it will default to false if unspecified
-      -When using makeValid()/makeInvalid()/makeWarning() functions and you want to use a symbol but don't want a message simply put null for message eg. makeValid($object,null,true);
-      -if there is a span directly after an input the clearValidity() function will assume its a validity symbol (might not affect anything just be wary)
-      -Only send the userAvailable() function the database ready (trimmed/lowercase) version of the username
-  */
   //Elements
   var $modals = $('.modal'); //all modals (For use with triggering events)
   var $newUserField =  $('#createUsername'); //Create Account : Username
@@ -428,15 +444,15 @@ $(document).ready(function () {
       disableButton("#createAccountSubmit");
     }
   });
-  $newEmailField.keyup(function () {validateEmail($newEmailField,$newEmailFieldC,"#emailGroup","#emailGroupC");});
-  $newEmailFieldC.keyup(function () {validateEmail($newEmailField,$newEmailFieldC,"#emailGroup","#emailGroupC");});
-  $newPassField.keyup(function () {validatePassword($newPassField,$newPassFieldC,"#passwordGroup","#passwordGroupC");});
-  $newPassFieldC.keyup(function () {validatePassword($newPassField,$newPassFieldC,"#passwordGroup","#passwordGroupC");});
+  $newEmailField.keyup(function (evt) {validateEmail($newEmailField,$newEmailFieldC,"#emailGroup","#emailGroupC");});
+  $newEmailFieldC.keyup(function (evt) {validateEmail($newEmailField,$newEmailFieldC,"#emailGroup","#emailGroupC");});
+  $newPassField.keyup(function (evt) {validatePassword($newPassField,$newPassFieldC,"#passwordGroup","#passwordGroupC");});
+  $newPassFieldC.keyup(function (evt) {validatePassword($newPassField,$newPassFieldC,"#passwordGroup","#passwordGroupC");});
   $modals.on('hidden.bs.modal',function(evt) {
     clearForm($(this).find("form"));
     disableButton("#createAccountSubmit");
   });
-  $modals.find('input').keyup(function () {
+  $modals.find('input').keyup(function (evt) {
     if(createAccountReady($newUserField, usernameAvailable, $newEmailField,$newEmailFieldC,$newPassField,$newPassFieldC))
     {
       enableButton("#createAccountSubmit");
@@ -452,7 +468,7 @@ $(document).ready(function () {
   });
 
   //Submit Button Clicked
-  $("#createAccountSubmit").click(function () {
+  $("#createAccountSubmit").click(function (evt) {
     alert("BAM, you now have an account! (NOT REALLY D:)\nDetails:\n" + "Username: " + currentUsername + "\nEmail: " + currentEmail + "\nPassword: " + currentPassword + "\n\nUnfinished Password will be encrypted in the future before being sent to the server...");
   });
 });
