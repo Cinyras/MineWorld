@@ -7,7 +7,7 @@ Make a request to triggers.php (ONLY TRANSFER ENCRYPTED DATA!!!! If the AES-comp
 	xmlhttp.open("GET","assets/php/triggers.php?login&username="+encrypt(username),true);
 Send your request
 	xmlhttp.send();
-This file will process the information, I have no idea if there's anything else
+This file will process the information, then echo out any pertinent info
 
 ===TABLE OF CONTENTS===
 
