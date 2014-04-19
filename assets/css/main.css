@@ -226,13 +226,9 @@ hr {
   border-color:transparent;
 }
 .imageViewer {
-  background-image:url("../img/redstone_block_background.png");
-  padding:7px;
+  background-image:url("../img/cobblestone_background.png");
+  padding:14px;
   border-width:20px;
-}
-.imageViewerOut {
-  background-image:url("../img/stone_block_background.png");
-  padding:7px;
 }
 .imageCaption {
   position:absolute;
