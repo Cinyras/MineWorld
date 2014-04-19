@@ -8,6 +8,12 @@ var isUserValid = function (username) { //Check String Against Valid Username Re
   return pattern.test(username);
 };
 
+var isPassValid = function (password) { //Check Password For Validity
+  var pattern = new RegExp(/(drop table|show tables|`|\*|--|\\\\|)/i); //THIS IS NOT WORKING AND I DON'T KNOW WHY
+  var pattern2 = new RegExp(/.{6,64}/i);
+  return pattern.test(password) && pattern2.test(password);
+};
+
 var doMatch = function ($input1, $input2, clean) { //function to test if inputs match
   $input1 = (typeof $input1 === "string") ? $($input1) : $input1;
   $input2 = (typeof $input2 === "string") ? $($input2) : $input2;
@@ -203,23 +209,39 @@ var validateUsername = function ($field, $group) { //Check for valid username an
   $field = (typeof $field === "string") ? $($field) : $field;
   $group = (typeof $group === "string") ? $($group) : $group;
 
-  var value = jQuery.trim($field.val().toLowerCase());
+  var isGood = false;
 
-  if(value.length > 0)
+  var value = jQuery.trim($field.val().toLowerCase());
+  if(typeof $group != "undefined")
   {
-    if(isUserValid(value))
+    if(value.length > 0)
     {
-      makeValid($group,"You're Good<br><br>Note: Usernames are case insensitive and trailing spaces are ignored.",true);
+      if(isUserValid(value))
+      {
+        makeValid($group,"You're Good<br><br>Note: Usernames are case insensitive and trailing spaces are ignored.",true);
+        isGood = true;
+      }
+      else
+      {
+        makeInvalid($group,"Invalid Username<br><br>Usernames Must:<br>&emsp;-Be at least 3 characters<br>&emsp;-Be less than 45 characters<br>&emsp;-Not have spaces<br>&emsp;-Not include symbols other than [._-]",true);
+      }
     }
     else
     {
-      makeInvalid($group,"Invalid Username<br><br>Usernames Must:<br>&emsp;-Be at least 3 characters<br>&emsp;-Be less than 45 characters<br>&emsp;-Not have spaces<br>&emsp;-Not include symbols other than [._-]",true);
+      clearValidity($group);
     }
   }
   else
   {
-    clearValidity($group);
+    if(value.length > 0)
+    {
+      if(isUserValid(value))
+      {
+        isGood = true;
+      }
+    }
   }
+  return isGood;
 };
 
 var validateEmail = function ($field1, $field2, $group1, $group2)
@@ -229,39 +251,59 @@ var validateEmail = function ($field1, $field2, $group1, $group2)
   $group1 = (typeof $group1 === "string") ? $($group1) : $group1;
   $group2 = (typeof $group2 === "string") ? $($group2) : $group2;
 
+  var isGood = false;
+
   var value = jQuery.trim($field1.val().toLowerCase());
 
-  if(value.length > 0)
+  if(typeof $group1 != "undefined" && typeof $group2 != "undefined")
   {
-    //not empty
-    if(isEmailValid(value))
+    if(value.length > 0)
     {
-      //valid
-      if(doMatch($field1, $field2, true))
+      //not empty
+      if(isEmailValid(value))
       {
-        //valid and match
-        makeValid($group1, "You're Good", true);
-        makeValid($group2, "You're Good", true);
+        //valid
+        if(doMatch($field1, $field2, true))
+        {
+          //valid and match
+          makeValid($group1, "You're Good", true);
+          makeValid($group2, "You're Good", true);
+          isGood = true;
+        }
+        else
+        {
+          //valid but don't match
+          makeWarning($group1, "Warnings:<br>&emsp;-Confirmation Email Doesn't Match", true);
+          makeWarning($group2, "Warnings:<br>&emsp;-Confirmation Email Doesn't Match", true);
+        }
       }
       else
       {
-        //valid but don't match
-        makeWarning($group1, "Warnings:<br>&emsp;-Confirmation Email Doesn't Match", true);
-        makeWarning($group2, "Warnings:<br>&emsp;-Confirmation Email Doesn't Match", true);
+        makeInvalid($group1, "Invalid Email<br><br>All Emails Must:<br>&emsp;-Be Correctly Formatted", true);
+        makeInvalid($group2, null, true);
       }
     }
     else
     {
-      makeInvalid($group1, "Invalid Email<br><br>All Emails Must:<br>&emsp;-Be Correctly Formatted", true);
-      makeInvalid($group2, null, true);
+      //empty
+      clearValidity($group1);
+      clearValidity($group2);
     }
   }
   else
   {
-    //empty
-    clearValidity($group1);
-    clearValidity($group2);
+    if(value.length > 0)
+    {
+      if(isEmailValid(value))
+      {
+        if(doMatch($field1, $field2, true))
+        {
+          isGood = true;
+        }
+      }
+    }
   }
+  return isGood;
 };
 
 var validatePassword = function ($field1, $field2, $group1, $group2) {
@@ -270,26 +312,78 @@ var validatePassword = function ($field1, $field2, $group1, $group2) {
   $group1 = (typeof $group1 === "string") ? $($group1) : $group1;
   $group2 = (typeof $group2 === "string") ? $($group2) : $group2;
 
+  var isGood = false;
+
   var value = $field1.val();
 
-  if(value.length > 0)
+  if(typeof $group1 != "undefined" && typeof $group2 != "undefined")
   {
-    if(doMatch($field1,$field2))
+    if(value.length > 0)
     {
-      makeValid($group1, "You're Good", true);
-      makeValid($group2, "You're Good", true);
+      if(isPassValid(value))
+      {
+        if(doMatch($field1,$field2))
+        {
+          makeValid($group1, "You're Good", true);
+          makeValid($group2, "You're Good", true);
+          isGood = true;
+        }
+        else
+        {
+          makeWarning($group1, "Warnings:<br>&emsp;-Confirmation Password Doesn't Match", true);
+          makeWarning($group2, "Warnings:<br>&emsp;-Confirmation Password Doesn't Match", true);
+        }
+      }
+      else
+      {
+        //Invalid Password
+        makeInvalid($group1, "Invalid Password<br><br>All Passwords Must:<br>&emsp;-Be at least 6 characters<br>&emsp;-Be less than 64 characters", true);
+        makeInvalid($group2, "Invalid Password<br><br>All Passwords Must:<br>&emsp;-Be at least 6 characters<br>&emsp;-Be less than 64 characters", true);
+      }
     }
     else
     {
-      makeWarning($group1, "Warnings:<br>&emsp;-Confirmation Password Doesn't Match", true);
-      makeWarning($group2, "Warnings:<br>&emsp;-Confirmation Password Doesn't Match", true);
+      //Field Empty
+      clearValidity($group1);
+      clearValidity($group2);
     }
   }
   else
   {
-    clearValidity($group1);
-    clearValidity($group2);
+    //Test Onlyd
+    if(value.length > 0)
+    {
+      if(isPassValid(value))
+      {
+        if(doMatch($field1, $field2))
+        {
+          isGood = true;
+        }
+      }
+    }
   }
+
+  return isGood;
+};
+
+//Non-reusable functions
+var userAvailable = function ($field, $group) {
+  $field = (typeof $field === "string") ? $($field) : $field;
+  $group = (typeof $group === "string") ? $($group) : $group;
+
+  var username = jQuery.trim($field.val().toLowerCase());
+
+  if(username === "taken")
+  {
+    makeWarning($group,"Warnings:<br>&emsp;-Username Taken",true);
+  }
+  return (username != "taken"); //eventually this will test for availability lol
+};
+
+var createAccountReady = function ($user, userAvailable, $email, $emailC, $pass, $passC) {
+  var username = jQuery.trim($user.val().toLowerCase());
+
+  return(userAvailable && validateUsername($user) && validateEmail($email,$emailC) && validatePassword($pass,$passC));
 };
 
 $(document).ready(function () {
@@ -299,8 +393,8 @@ $(document).ready(function () {
       -If a function takes a boolean it will default to false if unspecified
       -When using makeValid()/makeInvalid()/makeWarning() functions and you want to use a symbol but don't want a message simply put null for message eg. makeValid($object,null,true);
       -if there is a span directly after an input the clearValidity() function will assume its a validity symbol (might not affect anything just be wary)
+      -Only send the userAvailable() function the database ready (trimmed/lowercase) version of the username
   */
-  //Blah!
   //Elements
   var $modals = $('.modal'); //all modals (For use with triggering events)
   var $newUserField =  $('#createUsername'); //Create Account : Username
@@ -309,14 +403,56 @@ $(document).ready(function () {
   var $newPassField = $('#createPassword'); //Create Account : Password
   var $newPassFieldC = $('#createPasswordConfirm'); //Create Account : Confirm Password
 
+  //Other vars
+  var usernameAvailable = false;
+  var currentUsername = null;
+  var currentEmail = null;
+  var currentPassword = null;
+
   //bootstrap
   $(".hasPop").popover({ trigger: "hover", html: true }); //Init popover for elements with class hasPop
 
   //Events
-  $newUserField.keyup(function () {validateUsername($newUserField,"#usernameGroup");});
+  $newUserField.keyup(function () {
+    usernameAvailable = false; //assume username taken until tested
+    validateUsername($newUserField,"#usernameGroup");
+  });
+  $newUserField.focusout(function () {
+    usernameAvailable = userAvailable($newUserField,"#usernameGroup");
+    if(createAccountReady($newUserField, usernameAvailable, $newEmailField,$newEmailFieldC,$newPassField,$newPassFieldC))
+    {
+      enableButton("#createAccountSubmit");
+    }
+    else
+    {
+      disableButton("#createAccountSubmit");
+    }
+  });
   $newEmailField.keyup(function () {validateEmail($newEmailField,$newEmailFieldC,"#emailGroup","#emailGroupC");});
   $newEmailFieldC.keyup(function () {validateEmail($newEmailField,$newEmailFieldC,"#emailGroup","#emailGroupC");});
   $newPassField.keyup(function () {validatePassword($newPassField,$newPassFieldC,"#passwordGroup","#passwordGroupC");});
   $newPassFieldC.keyup(function () {validatePassword($newPassField,$newPassFieldC,"#passwordGroup","#passwordGroupC");});
-  $modals.on('hidden.bs.modal',function(evt) {clearForm($(this).find("form"));}); //when any modal closes find forms inside them and run the clearForm() function on them.
+  $modals.on('hidden.bs.modal',function(evt) {
+    clearForm($(this).find("form"));
+    disableButton("#createAccountSubmit");
+  });
+  $modals.find('input').keyup(function () {
+    if(createAccountReady($newUserField, usernameAvailable, $newEmailField,$newEmailFieldC,$newPassField,$newPassFieldC))
+    {
+      enableButton("#createAccountSubmit");
+    }
+    else
+    {
+      disableButton("#createAccountSubmit");
+    }
+
+    currentUsername = jQuery.trim($newUserField.val().toLowerCase());
+    currentEmail = jQuery.trim($newEmailField.val().toLowerCase());
+    currentPassword = $newPassField.val();
+  });
+
+  //Submit Button Clicked
+  $("#createAccountSubmit").click(function () {
+    alert("BAM, you now have an account! (NOT REALLY D:)\nDetails:\n" + "Username: " + currentUsername + "\nEmail: " + currentEmail + "\nPassword: " + currentPassword + "\n\nUnfinished Password will be encrypted in the future before being sent to the server...");
+  });
 });
