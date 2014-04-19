@@ -25,31 +25,8 @@
     <!-- My Slider Caption JavaScript -->
     <script src="assets/js/slider-captions.js"></script>
       
-      <!-- AJAX begins ~Nate -->
-      <script> 
-      var xmlhttp;
-      if (window.XMLHttpRequest) {
-          // code for IE7+, Firefox, Chrome, Opera, Safari
-            xmlhttp=new XMLHttpRequest();
-      }
-      else {
-          // code for IE6, IE5
-            xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
-      }
-          
-      function isUsernameTaken(username) {
-          if (username.length != 0) {
-              document.getElementById("error-hole").innerHTML="CHECK";
-              return;
-          }
-          
-          xmlhttp.open("GET","assets/php/master.php?u="+username,true);
-          xmlhttp.send();
-          
-      }
-      
-      </script>
-      <!-- AJAX ends ~Nate -->
+    <!-- AJAX ~Nate -->
+    <script src="assets/glue.js"></script>  
 
     <!-- Login Modal ~Matthew -->
     <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
@@ -66,7 +43,7 @@
             <form class="form">
               <div class="form-group">
                 <label class="sr-only" for="username">Username</label>
-                <input type="text" class="form-control input-lg" id="username" name="username" placeholder="Username" onchange="isUsernameTaken(this.value)">
+                <input type="text" class="form-control input-lg" id="username" name="username" placeholder="Username">
               </div>
               <div class="form-group">
                 <label class="sr-only" for="password">Password</label>
@@ -98,7 +75,7 @@
               <div class="form-group well">
                 <div class="form-group has-feedback" id="usernameGroup">
                   <label class="control-label" for="createUsername">Username:</label>
-                  <input type="text" id="createUsername" class="form-control input-lg" name="new-username" placeholder="Username">
+                  <input type="text" id="createUsername" class="form-control input-lg" name="new-username" placeholder="Username" onkeyup="isUsernameTaken(this.value)">
                   <span class="form-control-feedback glyphicon hasPop" rel="popover" data-container=".modal"></span>
                 </div>
               </div>
