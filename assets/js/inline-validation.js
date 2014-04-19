@@ -300,6 +300,7 @@ $(document).ready(function () {
       -When using makeValid()/makeInvalid()/makeWarning() functions and you want to use a symbol but don't want a message simply put null for message eg. makeValid($object,null,true);
       -if there is a span directly after an input the clearValidity() function will assume its a validity symbol (might not affect anything just be wary)
   */
+  //Blah!
   //Elements
   var $modals = $('.modal'); //all modals (For use with triggering events)
   var $newUserField =  $('#createUsername'); //Create Account : Username
