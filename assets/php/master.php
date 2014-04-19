@@ -210,9 +210,13 @@ class user {
         $all      = $sql->sanitize($all);
 
         setcookie("MWS", $hash, strtotime('-60 days'), "/", **DOMAIN**);
-        
-        #Remove that one hash from the blob-abase
-        #If all=true, then remove ALL blobs in blob-abase for that user
+        mysql_query("DELETE FROM userblobs WHERE user='".$uname."' AND code='".$hash."' LIMIT 1");
+
+        if ($all = true) {
+            mysql_query("DELETE FROM userblobs WHERE user='".$uname."'");
+        }
+
+        return true;
     }
 
     #$user->verify("fdghberthebth")

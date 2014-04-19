@@ -31,4 +31,10 @@ if (isset($_GET['login'])) {
 	echo $user->login($_GET['username']);
 }
 
+#/triggers.php?logout&username=Bob&code=gfhetvyurtghysftyi&all=false
+if (isset($_GET['logout'])) {
+	if ($_GET['all'] === 'true') { $all = true } else { $all = false; }
+	echo $user->logout($_GET['username'], $_GET['code'], $all);
+}
+
 ?>
