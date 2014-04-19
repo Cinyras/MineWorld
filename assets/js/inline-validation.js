@@ -9,9 +9,9 @@ var isUserValid = function (username) { //Check String Against Valid Username Re
 };
 
 var isPassValid = function (password) { //Check Password For Validity
-  var pattern = new RegExp(/(drop table|show tables|`|\*|--|\\\\|)/i); //THIS IS NOT WORKING AND I DON'T KNOW WHY
+  var pattern = new RegExp(/(drop table|show tables|`|\*|--|\\\\)/i); //THIS IS NOT WORKING AND I DON'T KNOW WHY
   var pattern2 = new RegExp(/.{6,64}/i);
-  return pattern.test(password) && pattern2.test(password);
+  return (!pattern.test(password)) && pattern2.test(password);
 };
 
 var doMatch = function ($input1, $input2, clean) { //function to test if inputs match
