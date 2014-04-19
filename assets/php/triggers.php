@@ -11,6 +11,9 @@ This file will process the information, I have no idea if there's anything else
 
 ===TABLE OF CONTENTS===
 
+nameAvailable
+	Will check if the username is avilable
+	/triggers.php?nameAvailable&username=Bob
 login
 	Will log the user in with the username in the url
 	/triggers.php?login&username=Bob
@@ -18,8 +21,14 @@ login
 
 require "master.php";
 
+#/triggers.php?nameAvailable&username=Bob
+if (isset($_GET['nameAvailable'])) {
+	echo $user->nameAvailable($_GET['username']);
+}
+
+#/triggers.php?login&username=Bob
 if (isset($_GET['login'])) {
-	$user->login($_GET['username']);
+	echo $user->login($_GET['username']);
 }
 
 ?>

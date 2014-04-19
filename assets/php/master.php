@@ -39,7 +39,6 @@ user
         Logs in a user, and then redirects them to the desired URL
         $user->login("Bob", "cake.com")
     logout() [[NOT FINISHED]]
-        ?? Should allow for redirects like login() does
         ?? Needs to allow for deletion of all sessions
         Logs a user out of their current session, or all sessions
         $user->logout("Bob", "rtngv825", true)
@@ -200,7 +199,7 @@ class user {
 
         setcookie("MWS", $hash, strtotime('+60 days'), "/", **DOMAIN**);
         $user->insertBlob($username, $hash);
-        header("Location: ".$url);
+        return true;
     }
 
     #$user->logout("Bob", "rtngv825", true)
@@ -210,7 +209,8 @@ class user {
         $hash     = $sql->sanitize($hash);
         $all      = $sql->sanitize($all);
 
-        #Remove cookie
+        setcookie("MWS", $hash, strtotime('-60 days'), "/", **DOMAIN**);
+        
         #Remove that one hash from the blob-abase
         #If all=true, then remove ALL blobs in blob-abase for that user
     }
