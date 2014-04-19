@@ -14,7 +14,7 @@ function isUsernameTaken(username) {
               document.getElementById("error-hole").innerHTML="CHECK";
               return;
           };
-    alert("dkfsdif");
-         // xmlhttp.open("GET","assets/php/master.php?u="+username,true);
-         // xmlhttp.send();
+    
+    xmlhttp.open("GET","assets/php/master.php?u="+username,true);
+    xmlhttp.send();
 }
