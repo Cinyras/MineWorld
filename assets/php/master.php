@@ -14,24 +14,29 @@ sql
     sanitize()
         Sanitizes inputted content to make it safe for sql
         $sql->sanitize($_POST['email'])
+        Line 132
 
 log -- [[MOST LIKELY TO BE DEPRECATED]]
     logEvent()
         Logs an event, to be reviewed
         $log->logEvent($logged_in_user, $logged_in_users_ip, $user_being_acted_upon, $user_bring_acted_upons_stored_ip, $what_is_going_on, $url_of_page_this_is_beig_used_on, $some_relevant_id)
+        Line 148
     changeFlag()
         ?? Needs to auto-detect what the current flag is, and change it
         Changes the flag status of a log
         $log->changeFlag(284, 0)
+        Line 163
 
 user
     chash()
         Hashes the inputted content
         $user->chash($password,$usersalt)
+        Line 176
     createsalt()
         ?? Making the random number cryptographically secure would rock
         Creates a salt to be used with a user's password
         $user->createsalt("Bob")
+        Line 
     insertBlob()
         Inserts a blob (System Action -- logins, password recoveries, 2Step Auths, etc) for a user with a code and stuff
         $user->insertBlob("Bob", "gyhvji59yw85")
@@ -152,8 +157,7 @@ class log { #[[MOST LIKELY TO BE DEPRECATED]]
         $sourceurl      = $sql->sanitize($sourceurl);
         $relevantid     = $sql->sanitize($relevantid);
         $date           = time();
-        mysql_query("INSERT INTO `log` (actinguser, actinguserip, affecteduser, affecteduserip, event, sourceurl, date) VALUES (
-        '".$actinguser."', '".$actinguserip."', '".$affecteduser."', '".$affecteduserip."', '".$event."', '".$sourceurl."', '".$date."')");
+        mysql_query("INSERT INTO `log` (actinguser, actinguserip, affecteduser, affecteduserip, event, sourceurl, date) VALUES ('".$actinguser."', '".$actinguserip."', '".$affecteduser."', '".$affecteduserip."', '".$event."', '".$sourceurl."', '".$date."')");
     }
     
     #$log->changeFlag(284, 0)

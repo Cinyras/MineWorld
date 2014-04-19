@@ -11,30 +11,47 @@ This file will process the information, then echo out any pertinent info
 
 ===TABLE OF CONTENTS===
 
-nameAvailable
-	Will check if the username is avilable
-	/triggers.php?nameAvailable&username=Bob
 login
 	Will log the user in with the username in the url
 	/triggers.php?login&username=Bob
+logout
+	Will log the user out, it can log out all sessions of the uset
+	/triggers.php?logout&username=Bob&code=gfrnhiwe5thywn7v68&all=false
+get
+	Will get user information
+	/triggers.php?get&type=email
+nameAvailable
+	Will check if the username is avilable
+	/triggers.php?nameAvailable&username=Bob
 */
 
 require "master.php";
 
-#/triggers.php?nameAvailable&username=Bob
-if (isset($_POST['nameAvailable'])) {
-	echo $user->nameAvailable($_POST['username']);
-}
-
 #/triggers.php?login&username=Bob
-if (isset($_POST['login'])) {
-	echo $user->login($_POST['username']);
+if (isset($_GET['login'])) {
+	echo $user->login($_GET['username']);
 }
 
 #/triggers.php?logout&username=Bob&code=gfhetvyurtghysftyi&all=false
-if (isset($_POST['logout'])) {
-	if ($_POST['all'] === 'true') { $all = true } else { $all = false; }
-	echo $user->logout($_POST['username'], $_POST['code'], $all);
+if (isset($_GET['logout'])) {
+	if ($_GET['all'] === 'true') { $all = true } else { $all = false; }
+	echo $user->logout($_GET['username'], $_GET['code'], $all);
+}
+
+#/triggers.php?verify&code=gfnhw785nmhyw9857yvw875y
+if (isset($_GET['verify'])) {
+	echo $user->verify($_GET['code'])
+}
+
+#/triggers.php?get&type=email
+if (isset($_GET['get'])) {
+	if (isset($_GET['session'])) { $session = $_GET['session']; } else { $session = false; }
+	echo $user->get($_GET['type'], $session);
+}
+
+#/triggers.php?nameAvailable&username=Bob
+if (isset($_GET['nameAvailable'])) {
+	echo $user->nameAvailable($_GET['username']);
 }
 
 ?>
