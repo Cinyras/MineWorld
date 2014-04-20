@@ -321,7 +321,10 @@ class user {
         $date     = time();
         $lli      = "0000000000";
 
+        #Needs to send activation email (that should be a function)
+
         mysql_query("INSERT INTO `users` (username, permusername, email, permemail, password, salt, date_r, date_l, date_lo) VALUES ('$username', '$username', '$email', '$email', '$password', '$salt', '$date', '$date', '$date')");
+        return true;
     }
     
     #$user->edit("email", $newemail, "id", $id);

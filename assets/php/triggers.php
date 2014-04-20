@@ -49,6 +49,11 @@ if (isset($_GET['get'])) {
 	echo $user->get($_GET['type'], $session);
 }
 
+#triggers.php?create&username=Bob&email=example@example.com&password=mgh893
+if (isset($_GET['create'])) {
+	echo $user->create($_GET['username'], $_GET['email'], $_GET['password'])
+}
+
 #/triggers.php?nameAvailable&username=Bob
 if (isset($_GET['nameAvailable'])) {
 	echo $user->nameAvailable($_GET['username']);
