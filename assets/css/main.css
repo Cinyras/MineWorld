@@ -13,7 +13,7 @@
 }
 
 body {
-  background-image:url("../img/farmland_wet_background.png");
+  background-image:url("../img/site_background.jpg");
   background-attachment: fixed;
 }
 a {
@@ -226,7 +226,8 @@ hr {
   border-color:transparent;
 }
 .imageViewer {
-  background-image:url("../img/cobblestone_background.png");
+  background-color:rgba(200,200,200,255);
+  background-image:url("../img/stone_overlay.png");
   padding:14px;
   border-width:20px;
 }
@@ -256,8 +257,8 @@ hr {
   padding:5px;
 }
 .featuredContentGroup {
-  background-image:url("../img/stone_block_background.png");
-  padding-left:2px;
+  background-color:rgba(200,200,200,255);
+  background-image:url("../img/stone_overlay.png");
 }
 .featuredContentImgContainer {
   text-align:center;
@@ -266,8 +267,8 @@ hr {
   width:90px;
   height:90px;
   margin:0 auto;
-  margin-top:5px;
-  margin-bottom:5px;
+  margin-top:15px;
+  margin-bottom:15px;
 }
 .newsContainer {
   background-color:rgba(200,200,200,255);
@@ -306,7 +307,7 @@ hr {
   color:black;
 }
 .statisticsContainer {
-  background-image:url("../img/stonebrick_background.png");
+  background-image:url("../img/stone_block_background.png");
   min-height:100px;
   margin-top:10px;
   margin-bottom:10px;
@@ -348,7 +349,9 @@ hr {
   color:white;
 }
 .modal .well {
-  background-image:url("../img/wool_background.png");
+  background-color:rbga(125,125,125,1);
+  border-color:rgba(175,175,175,1);
+  background-image: url(../img/stone_overlay.png);
 }
 .modal-header, .modal-body, .modal-footer {
   background-image:url("../img/stone_overlay.png");
